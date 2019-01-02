@@ -32,10 +32,10 @@
                     Users</a>
                 <ul class="collapse list-unstyled" id="homeSubmenu">
                     <li>
-                        <a href="#">All Users</a>
+                        <a href="{{route('users.index')}}">All Users</a>
                     </li>
                     <li>
-                        <a href="#">Create User</a>
+                        <a href="{{route('users.create')}}">Create User</a>
                     </li>
 
                 </ul>
