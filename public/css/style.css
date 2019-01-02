@@ -198,5 +198,10 @@ a.article:hover {
 #servicesDropdown:active{
     background-color: #fff;
 }
+#userButton{
+    height: 37px;
+    background-color:#6d7fcc;
+    color:#fff;
+}
 
 

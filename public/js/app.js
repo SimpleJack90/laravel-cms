@@ -53620,8 +53620,11 @@ __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 
 Vue.component('example', __webpack_require__(/*! ./components/Example.vue */ "./resources/js/components/Example.vue"));
-var app = new Vue({
-  el: '#app'
+var main = new Vue({
+  el: '#app',
+  data: {
+    currentActivity: 'home'
+  }
 });
 
 /***/ }),
