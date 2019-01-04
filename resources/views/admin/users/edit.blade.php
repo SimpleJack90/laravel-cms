@@ -6,7 +6,7 @@
 <div class="row">
     <div class="col-sm-3">
 
-        <img style="width:200px;height: 100px;" src="{{$user->photo ? URL::asset($user->photo->file):'https://via.placeholder.com/200x100'}}" alt="User Photo" class="img-thumbnail img-responsive ">
+        <img style="width:400px;height: 400px;" src="{{$user->photo ? URL::asset($user->photo->file):'https://via.placeholder.com/200x100'}}" alt="User Photo" class="img-thumbnail img-responsive ">
     </div>
 
     <div class="col-sm-9">
@@ -40,11 +40,18 @@
         {!! Form::password('password',['class'=>'form-control']) !!}
     </div>
     <div class="form-group">
-        {!! Form::submit('Edit User',['class'=>'btn btn-primary']) !!}
+        {!! Form::submit('Update User',['class'=>'btn btn-primary']) !!}
     </div>
 
     {!! Form::close() !!}
 
+        {!! Form::open(['method'=>'DELETE', 'action'=>['AdminUsersController@destroy',$user->id]]) !!}
+
+        <div class="form-group">
+            {!! Form::submit('Delete User',['class'=>'btn btn-danger  ']) !!}
+        </div>
+
+        {!! Form::close() !!}
     </div>
 </div>
     @include('includes.form_error')

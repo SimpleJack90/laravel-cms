@@ -121,7 +121,7 @@
                         <div class="btn-group dropleft ml-auto">
                             <button  id="userButton" type="button" class="btn  btn-sm ml-3 dropdown-toggle " data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 
-                                User
+                                {{Auth::user()->name}}
                             </button>
                             <div class="dropdown-menu">
 
