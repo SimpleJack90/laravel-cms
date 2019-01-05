@@ -29,7 +29,7 @@
             </li>
             <li >
                 <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
-                    Users</a>
+                    <i class="fas fa-wrench"></i>&nbsp;Users</a>
                 <ul class="collapse list-unstyled" id="homeSubmenu">
                     <li>
                         <a href="{{route('users.index')}}">All Users</a>
@@ -41,22 +41,24 @@
                 </ul>
             </li>
             <li>
-                <a href="#">About</a>
-            </li>
-            <li>
-                <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Pages</a>
+                <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                    <i class="fas fa-wrench"></i> &nbsp;Posts</a>
                 <ul class="collapse list-unstyled" id="pageSubmenu">
                     <li>
-                        <a href="#">Page 1</a>
+                        <a href="{{route('posts.index')}}">All Posts</a>
                     </li>
                     <li>
-                        <a href="#">Page 2</a>
+                        <a href="{{route('posts.create')}}">Create Post</a>
                     </li>
                     <li>
                         <a href="#">Page 3</a>
                     </li>
                 </ul>
             </li>
+            <li>
+                <a href="#">About</a>
+            </li>
+
             <li>
                 <a href="#">Portfolio</a>
             </li>
