@@ -50,17 +50,34 @@
                     <li>
                         <a href="{{route('posts.create')}}">Create Post</a>
                     </li>
-                    <li>
-                        <a href="#">Page 3</a>
-                    </li>
+
                 </ul>
             </li>
-            <li>
-                <a href="#">About</a>
+            <li >
+                <a href="#categorySubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                    <i class="fas fa-wrench"></i> Categories</a>
+                <ul class="collapse list-unstyled" id="categorySubmenu">
+                    <li>
+                        <a href="{{route('categories.index')}}">All Categories</a>
+                    </li>
+
+
+                </ul>
             </li>
 
             <li>
-                <a href="#">Portfolio</a>
+                <a href="#mediaSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                    <i class="fas fa-wrench"></i> Media</a>
+                <ul class="collapse list-unstyled" id="mediaSubmenu">
+                    <li>
+                        <a href="{{route('categories.index')}}">All Media</a>
+                    </li>
+                    <li>
+                        <a href="{{route('categories.index')}}">Upload Media</a>
+                    </li>
+
+
+                </ul>
             </li>
             <li>
                 <a href="#">Contact</a>
