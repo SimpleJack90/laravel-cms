@@ -9,11 +9,13 @@
     <link rel="stylesheet" href={{asset("/css/bootstrap.css")}}>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
-    <title>Bootstrap Sidebar 1</title>
+    <title>Laravel CMS</title>
 
     <link rel="stylesheet" href={{asset("css/style.css")}}>
     <script defer src={{secure_url("https://use.fontawesome.com/releases/v5.0.13/js/solid.js")}} integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
     <script defer src={{secure_url("https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js")}} integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
+
+    @yield('styles')
 </head>
 <body>
 <div class="wrapper">
@@ -50,6 +52,9 @@
                     <li>
                         <a href="{{route('posts.create')}}">Create Post</a>
                     </li>
+                    <li>
+                        <a href={{route('comments.index')}}>Comments</a>
+                    </li>
 
                 </ul>
             </li>
@@ -70,18 +75,16 @@
                     <i class="fas fa-wrench"></i> Media</a>
                 <ul class="collapse list-unstyled" id="mediaSubmenu">
                     <li>
-                        <a href="{{route('categories.index')}}">All Media</a>
+                        <a href="{{route('media.index')}}">All Media</a>
                     </li>
                     <li>
-                        <a href="{{route('categories.index')}}">Upload Media</a>
+                        <a href="{{route('media.create')}}">Upload Media</a>
                     </li>
 
 
                 </ul>
             </li>
-            <li>
-                <a href="#">Contact</a>
-            </li>
+
         </ul>
 
 
@@ -147,7 +150,14 @@
                                 <a style="color:#6d7fcc;" class="dropdown-item" href="#"><i class="fa fa-user"></i>&nbsp;User Profile</a>
                                 <a style="color:#6d7fcc;" class="dropdown-item" href="#"><i class="fas fa-cogs"></i>&nbsp;Settings</a>
                                 <div class="dropdown-divider"></div>
-                                <a style="color:#6d7fcc;" class="dropdown-item" href="#"><i class="fas fa-sign-out-alt"></i>&nbsp;Logout</a>
+                                <a style="color:#6d7fcc;" class="dropdown-item"
+                                   href="{{route('logout')}}"
+                                   onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                    <i class="fas fa-sign-out-alt"></i>&nbsp;Logout</a>
+                                <form hidden id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                    @csrf
+                                </form>
                             </div>
                         </div>
 
@@ -165,6 +175,7 @@
 
     </div>
 </div>
+@yield('scripts')
 <script src={{asset("js/jquery-3.3.1.js")}}></script>
 <script src={{asset("js/popper.min.js")}}></script>
 <script src={{asset("/js/bootstrap.js")}}></script>
@@ -203,5 +214,7 @@
 
 
 </script>
+
+
 </body>
 </html>
