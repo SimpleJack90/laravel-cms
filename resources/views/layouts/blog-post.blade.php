@@ -9,48 +9,81 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Blog Post - Start Bootstrap Template</title>
+    <title>Post</title>
 
     <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="{{asset('css/bootstrap.css')}}">
     <link rel="stylesheet" href={{asset("css/app.css")}}>
     <link rel="stylesheet" href={{asset("css/libs.css")}}>
+    <link rel="stylesheet" href="{{asset('css/style.css')}}">
+    <script defer src={{secure_url("https://use.fontawesome.com/releases/v5.0.13/js/solid.js")}} integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
+    <script defer src={{secure_url("https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js")}} integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
 
 
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
+
 
 </head>
 
-<body style="margin-top:-70px;">
+<body >
 
 <!-- Navigation -->
 
 
-<nav class="navbar navbar-dark bg-dark navbar-expand-sm">
+<nav id="navBarId" style="background-image: none; background-color:#662d1c;"  class="navbar fixed-top   navbar-expand-sm ">
     <div class="container">
 
-        <a href="#" class="navbar-brand">Blog</a>
+        <a style="color:white;" href="#" class="navbar-brand">Daily Blog</a>
 
         <button class="navbar-toggler" type="button" data-toggle="collapse"
                 data-target="#myTogglerNav" aria-controls="myTogglerNav" aria-expanded="false"
                 aria-label="Toggle Navigation">
-            <span class="navbar-toggler-icon"></span>
+            <i style="border-color:#fff; color:#fff;" class="fas fa-align-right"></i>
         </button>
 
-        <div class="collapse navbar-collapse " id="myTogglerNav">
-            <div class="navbar-nav ml-auto">
-                <a class="nav-item nav-link active" href="#">Home</a>
-                <a class="nav-item nav-link" href="#">Mission</a>
-                <a class="nav-item nav-link" href="#">Services</a>
-                <a class="nav-item nav-link" href="#">Staff</a>
-                <a class="nav-item nav-link" href="#">Testimonials</a>
-                @if(Auth::check())
-                <a class="nav-item nav-link" href="#">Loged in:{{Auth::user()->name}}</a>
+        <div  class="collapse navbar-collapse " id="myTogglerNav">
+            <div class="navbar-nav ml-auto" style="float:right; font-size: large;">
+                <a  style="color:white;" class="nav-item nav-link ml-auto" href="{{ url('/') }}">Home</a>
+                <a  style="color:white;" class="nav-item nav-link ml-auto" href="{{route('home.posts')}}">Blog</a>
+
+                @if (Route::has('login'))
+
+
+                    @auth
+
+                @else
+                    <a  style="color:white;" class="nav-item nav-link" href="{{ route('login') }}">Login</a>
+
+                    @if (Route::has('register'))
+                        <a id="userDrop" style="color:white;" class="nav-item nav-link" href="{{ route('register') }}">Register</a>
                     @endif
+                    @endauth
+
+                @endif
+
+                @if(Auth::user())
+                    <div class="btn-group dropleft ml-auto">
+                        <button id="userButton2"  type="button" class="btn  btn-sm ml-3 dropdown-toggle " data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+
+                            {{Auth::user()->name}}
+                        </button>
+                        <div class="dropdown-menu">
+
+                            <a  style="color:#662d1c;" class="dropdown-item" href="#"><i class="fa fa-user"></i>&nbsp;User Profile</a>
+                            <a  style="color:#662d1c;" class="dropdown-item" href="#"><i class="fas fa-cogs"></i>&nbsp;Settings</a>
+                            <div class="dropdown-divider"></div>
+                            <a style="color:#662d1c;" class="dropdown-item"
+                               href="{{route('logout')}}"
+                               onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                <i class="fas fa-sign-out-alt"></i>&nbsp;Logout</a>
+                            <form hidden id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                @csrf
+                            </form>
+                        </div>
+                    </div>
+                @endif
+
+
             </div><!-- navbar -->
         </div>
 
@@ -73,12 +106,12 @@
         <div class="col-md-4">
 
             <!-- Blog Search Well -->
-            <div class="well">
-                <h4>Blog Search</h4>
+            <div style="border-color: #662D1C;" class="well">
+                <h4 style="color:#662d1c;">Search Comments:</h4>
                 <div class="input-group">
-                    <input type="text" class="form-control">
+                    <input style="border-color: #662D1C;" type="text" class="form-control">
                     <span class="input-group-btn">
-                            <button class="btn btn-default" type="button">
+                            <button style="border-color: #662D1C;background-color: #662D1C;" class="btn btn-primary" type="button">
                                 <span class="glyphicon glyphicon-search"></span>
                         </button>
                         </span>
@@ -87,15 +120,17 @@
             </div>
 
             <!-- Blog Categories Well -->
-            <div class="well">
+            <div style="border-color: #662D1C;" class="well">
                 @yield('sidebarCategory')
                 <!-- /.row -->
             </div>
 
             <!-- Side Widget Well -->
-            <div class="well">
-                <h4>Side Widget Well</h4>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore, perspiciatis adipisci accusamus laudantium odit aliquam repellat tempore quos aspernatur vero.</p>
+            <div style="border-color: #662D1C;" class="well">
+                <h4 style="color:#662d1c;">Recent Comments</h4>
+                <p style="color:#662d1c;"> Place Holder Place Holder Place Holder Place Holder Place Holder Place Holder Place Holder Place Holder
+                    Place Holder Place HolderPlace Holder Place HolderPlace Holder Place HolderPlace Holder Place HolderPlace Holder Place Holder
+                    Place Holder Place HolderPlace Holder Place HolderPlace Holder Place HolderPlace Holder Place Holder</p>
             </div>
 
         </div>
@@ -109,7 +144,7 @@
     <footer>
         <div class="row">
             <div class="col-lg-12">
-                <p>Copyright &copy; Your Website 2014</p>
+                <p>Copyright &copy; by DailyBlog</p>
             </div>
         </div>
         <!-- /.row -->

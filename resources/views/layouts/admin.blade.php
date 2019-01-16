@@ -98,8 +98,8 @@
 
             <div class="container-fluid">
 
-                <button  type="button" id="sidebarCollapse" class="btn btn-info ">
-                    <i class="fas fa-align-left"></i>
+                <button style="background-color:#8B2F2F; border-color:#8B2F2F;" type="button" id="sidebarCollapse" class="btn btn-info ">
+                    <i  class="fas fa-align-left"></i>
                     <span></span>
                 </button> <!-- Toggle Sidebar Button-->
 
@@ -120,11 +120,11 @@
 
 
 
-                        <a id="homeNav" class="nav-item nav-link ml-auto" href="#">Home</a>
-                        <a id="homeNav" class="nav-item nav-link ml-auto" href="#">Mission</a>
-                        <a id="homeNav" class="nav-item nav-link ml-auto" href="#">Services</a>
-                        <a id="homeNav" class="nav-item nav-link ml-auto" href="#">Staff</a>
-                        <a id="homeNav" class="nav-item nav-link ml-auto" href="#">Testimonials</a>
+                        <a style="color:#8B2F2F;" id="homeNav" class="nav-item nav-link ml-auto" href="{{route('welcome')}}">Home</a>
+                        <a style="color:#8B2F2F;" id="homeNav" class="nav-item nav-link ml-auto" href="#">Example 1</a>
+                        <a style="color:#8B2F2F;" id="homeNav" class="nav-item nav-link ml-auto" href="#">Example 2</a>
+                        <a style="color:#8B2F2F;" id="homeNav" class="nav-item nav-link ml-auto" href="#">Example 3</a>
+                        <a style="color:#8B2F2F;" id="homeNav" class="nav-item nav-link ml-auto" href="#">Example 4</a>
 
 
 
@@ -134,9 +134,9 @@
                         <form action="" class="form-inline ml-auto">
                             <div class="input-group">
                                 <label class="sr-only" for="search">Search</label>
-                                <input type="text" class="form-control"  id="search" placeholder="Search for...">
+                                <input style="border-color: #8B2F2F;" type="text" class="form-control"  id="search" placeholder="Search for...">
                                 <div class="input-group-append">
-                                    <button class="btn btn-info" type="button"><i class="fa fa-search"></i></button>
+                                    <button style="background-color:#8B2F2F; border-color:#8B2F2F; " class="btn btn-info" type="button"><i  class="fa fa-search"></i></button>
                                 </div>
                             </div>
                         </form><!-- Form ending -->
@@ -147,10 +147,10 @@
                             </button>
                             <div class="dropdown-menu">
 
-                                <a style="color:#6d7fcc;" class="dropdown-item" href="#"><i class="fa fa-user"></i>&nbsp;User Profile</a>
-                                <a style="color:#6d7fcc;" class="dropdown-item" href="#"><i class="fas fa-cogs"></i>&nbsp;Settings</a>
+                                <a style="color:#8B2F2F;" class="dropdown-item" href="#"><i class="fa fa-user"></i>&nbsp;User Profile</a>
+                                <a style="color:#8B2F2F;" class="dropdown-item" href="#"><i class="fas fa-cogs"></i>&nbsp;Settings</a>
                                 <div class="dropdown-divider"></div>
-                                <a style="color:#6d7fcc;" class="dropdown-item"
+                                <a style="color:#8B2F2F;" class="dropdown-item"
                                    href="{{route('logout')}}"
                                    onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">

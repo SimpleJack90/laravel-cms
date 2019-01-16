@@ -1,83 +1,100 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <!-- CSRF Token -->
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-
-    <title>{{ config('app.name', 'Laravel') }}</title>
-
-    <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
+    <title>Laravel CMS</title>
 
     <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="{{asset('css/bootstrap.css')}}">
+    <link rel="stylesheet" href="{{asset('css/style.css')}}">
+    <!-- Styles -->
+    <script defer src={{secure_url("https://use.fontawesome.com/releases/v5.0.13/js/solid.js")}} integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
+    <script defer src={{secure_url("https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js")}} integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet" type="text/css">
-
-    <!-- Styles -->
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 <body>
-    <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light navbar-laravel">
-            <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'Laravel') }}
-                </a>
-                <a href="{{route('users.index')}}">Home</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
+<div style="margin-top: 100px;">
+@yield('content')
+</div>
 
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav mr-auto">
+<nav id="navBarId" style="background-image: none; background-color:#662d1c;"  class="navbar fixed-top   navbar-expand-sm ">
+    <div class="container">
 
-                    </ul>
+        <a style="color:white;" href="#" class="navbar-brand">Daily Blog</a>
 
-                    <!-- Right Side Of Navbar -->
-                    <ul class="navbar-nav ml-auto">
-                        <!-- Authentication Links -->
-                        @guest
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                            </li>
-                            @if (Route::has('register'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                                </li>
-                            @endif
-                        @else
-                            <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#"
-                                   role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    {{ Auth::user()->name }} <span class="caret"></span>
-                                </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse"
+                data-target="#myTogglerNav" aria-controls="myTogglerNav" aria-expanded="false"
+                aria-label="Toggle Navigation">
+            <i style="border-color:#fff; color:#fff;" class="fas fa-align-right"></i>
+        </button>
+
+        <div  class="collapse navbar-collapse " id="myTogglerNav">
+            <div class="navbar-nav ml-auto" style="float:right; font-size: large;">
 
 
 
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
-                                       onclick="event.preventDefault();
+                @if(Auth::user())
+                    @if(Auth::user()->isAdmin())
+                        <a  style="color:white;" class="nav-item nav-link ml-auto" href="{{route('admin.index')}}">Dashboard</a>
+                    @endif
+                @endif
+                <a  style="color:white;" class="nav-item nav-link ml-auto" href="{{ url('/') }}">Home</a>
+                <a  style="color:white;" class="nav-item nav-link ml-auto" href="{{route('home.posts')}}">Blog</a>
+
+                @if (Route::has('login'))
+
+
+                    @auth
+
+                @else
+                    <a  style="color:white;" class="nav-item nav-link" href="{{ route('login') }}">Login</a>
+
+                    @if (Route::has('register'))
+                        <a id="userDrop" style="color:white;" class="nav-item nav-link" href="{{ route('register') }}">Register</a>
+                    @endif
+                    @endauth
+
+                @endif
+
+                @if(Auth::user())
+                    <div class="btn-group dropleft ml-auto">
+                        <button id="userButton2"  type="button" class="btn  btn-sm ml-3 dropdown-toggle " data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+
+                            {{Auth::user()->name}}
+                        </button>
+                        <div class="dropdown-menu">
+
+                            <a  style="color:#662d1c;" class="dropdown-item" href="#"><i class="fa fa-user"></i>&nbsp;User Profile</a>
+                            <a  style="color:#662d1c;" class="dropdown-item" href="#"><i class="fas fa-cogs"></i>&nbsp;Settings</a>
+                            <div class="dropdown-divider"></div>
+                            <a style="color:#662d1c;" class="dropdown-item"
+                               href="{{route('logout')}}"
+                               onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                                        logni se offf</a>
+                                <i class="fas fa-sign-out-alt"></i>&nbsp;Logout</a>
+                            <form hidden id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                @csrf
+                            </form>
+                        </div>
+                    </div>
+                @endif
 
 
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                        @csrf
-                                    </form>
+            </div><!-- navbar -->
+        </div>
 
-                            </li>
-                        @endguest
-                    </ul>
-                </div>
-            </div>
-        </nav>
+    </div><!-- container -->
+</nav><!-- nav -->
 
-        <main class="py-4">
-            @yield('content')
-        </main>
-    </div>
+
+
+<script src="{{asset('js/libs.js')}}"></script>
+<script src={{asset("js/jquery-3.3.1.js")}}></script>
+<script src={{asset("js/popper.min.js")}}></script>
+<script src={{asset("/js/bootstrap.js")}}></script>
 </body>
 </html>

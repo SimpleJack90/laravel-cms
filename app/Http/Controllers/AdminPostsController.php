@@ -149,8 +149,15 @@ class AdminPostsController extends Controller
     public function post($id){
 
        $post=Post::findOrFail($id);
+
        $categories=Category::all();
        $comments=$post->comment()->whereIsActive(1)->get();
       return view('post',compact('post','categories','comments'));
+    }
+
+    public function allPosts(){
+        $posts=Post::orderBy('created_at', 'DESC')->paginate(3);
+        $categories=Category::all();
+        return view('posts',compact('posts'),compact('categories'));
     }
 }

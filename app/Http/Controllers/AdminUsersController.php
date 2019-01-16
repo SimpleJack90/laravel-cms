@@ -26,6 +26,10 @@ class AdminUsersController extends Controller
         return view('admin.users.index',compact('users'));
     }
 
+    public function adminDash(){
+        return view('admin.index');
+    }
+
     /**
      * Show the form for creating a new resource.
      *

@@ -8,7 +8,7 @@
     <!-- Blog Post -->
 
     <!-- Title -->
-    <h1>{{$post->title}}</h1>
+    <h1 style="color:#662d1c;">{{$post->title}}</h1>
 
 
     <!-- Author -->
@@ -19,7 +19,11 @@
     <hr>
 
     <!-- Date/Time -->
-    <p><span class="glyphicon glyphicon-time"></span> Posted  {{$post->created_at->diffForHumans()}}</p>
+    <p><span class="glyphicon glyphicon-time"></span> Posted
+        <a href="#" data-toggle="tooltip" data-trigger="hover" data-placement="bottom" title="{{$post->created_at}}">
+            {{$post->created_at->diffForHumans()}}
+        </a>
+        </p>
 
     <hr>
 
@@ -29,7 +33,7 @@
     <hr>
 
     <!-- Post Content -->
-    <p class="lead">{{$post->body}}</p>
+    <p style="color:black;" class="lead">{{$post->body}}</p>
 
     <hr>
 
@@ -42,25 +46,27 @@
 
     <!-- Comments Form -->
     @if(Auth::check())
-    <div class="well">
-        <h4>Leave a Comment:</h4>
+        <div class="well">
+            <h4 style="color:#662d1c;" >Leave a Comment:</h4>
 
-        {!! Form::open(['method'=>'POST','action'=>'PostCommentsController@store']) !!}
+            {!! Form::open(['method'=>'POST','action'=>'PostCommentsController@createComment']) !!}
 
             <input type="hidden" name="post_id" value="{{$post->id}}">
-            <div class="form-grou">
-                {!! Form::label('body','Text:') !!}
+            <div class="form-group">
+                {!! Form::label('body','Text:',['style'=>'color:#662d1c;']) !!}
                 {!! Form::textarea('body',null,['class'=>'form-control','row'=>3]) !!}
             </div>
-        <br>
-        <br>
+            <br>
+            <br>
             <div class="form-group">
-                {!! Form::submit('Submit',['class'=>'btn btn-primary']) !!}
+                {!! Form::submit('Submit',['class'=>'btn','style'=>'background-color:#662d1c; color:#fff; border-color:#662d1c;']) !!}
             </div>
 
 
-        {!! Form::close() !!}
-    </div>
+            {!! Form::close() !!}
+        </div>
+        @else
+        <p><a style="color:blue;" href="{{route('login')}}">Log</a> in to leave comment or <a style="color:blue;" href="{{route('register')}}">Sign up</a> </p>
     @endif
 
     <hr>
@@ -68,20 +74,26 @@
     <!-- Posted Comments -->
 
     @if(count($comments)>0)
-
+        @php($i=1)
     @foreach($comments as $comment)
     <!-- Comment -->
+
     <div class="media">
         <a class="pull-left" href="#">
             <img height="64" width="64" class="media-object" src="{{URL::asset($comment->photo)}}" alt="">
+
         </a>
+
+
 
         <div class="media-body">
             <h4 class="media-heading">by {{$comment->author}}
                 <small>&nbsp;&nbsp;&nbsp;Posted {{$comment->created_at->diffForHumans()}}</small>
             </h4>
-            <button class="toggle-reply btn btn-primary float-right">Reply</button>
-            <p>{{$comment->body}}</p>
+            @if(Auth::check())
+            <button style="background-color:#662d1c; color:#fff;border-color:#662d1c;" class="toggle-reply btn btn-primary float-right" id="{{$i}}">Reply</button>
+            @endif
+            <p style="color:black;">{{$comment->body}}</p>
 
 
             @if(Session::has('reply_message'))
@@ -89,13 +101,14 @@
                 {{session('reply_message')}}
 
             @endif
+
             <!-- Nested Comments-->
             @if(count($comment->replies)>0 )
 
                 @foreach($comment->replies as $reply)
                     @if($reply->is_active==1)
                     <div class="comment-reply-container">
-<hr>
+            <hr>
 
 
             <div class="media">
@@ -106,7 +119,7 @@
                     <h4 class="media-heading">by {{$reply->author}}
                         <small>&nbsp;&nbsp;&nbsp;Posted {{$reply->created_at->diffForHumans()}}</small>
                     </h4>
-                    <p>{{$reply->body}}</p>
+                    <p style="color:black;">{{$reply->body}}</p>
 
                 </div>
                 <br>
@@ -117,25 +130,25 @@
                         @endforeach
                         @endif
 
-                        <div class="comment-reply" hidden=>
+                      {!!   '<div  class="comment-reply" hidden id="commentId'.$i++.'">'  !!}
 
             {!! Form::open(['method'=>'POST','action'=>'CommentRepliesController@createReply']) !!}
 
             <input type="hidden" name="comment_id" value="{{$comment->id}}">
 
             <div class="form-group">
-                {!! Form::label('body','Text:') !!}
+                {!! Form::label('body','Text:',['style'=>'color:#662d1c;']) !!}
                 {!! Form::textarea('body',null,['class'=>'form-control','rows'=>2]) !!}
             </div>
             <br>
             <br>
             <div class="form-group">
-                {!! Form::submit('Submit',['class'=>'btn btn-primary']) !!}
+                {!! Form::submit('Submit',['class'=>'btn','style'=>'background-color:#662d1c; color:#fff;']) !!}
             </div>
 
 
             {!! Form::close() !!}
-                    </div>
+                  {!!   '</div>'  !!}
 
 
 
@@ -151,35 +164,41 @@
     @endsection
 
     @section('sidebarCategory')
-        <h4>Blog Categories</h4>
+        <h4 style="color:#662d1c;">Post Category</h4>
         <div class="row">
             <div class="col-lg-6">
                 <ul class="list-unstyled">
-                    @foreach($categories as $category)
-                    <li><a href="#">{{$category->name}}</a>
-                        @endforeach
+
+                    <li><a href="#">{{$post->category->name}}</a>
+
 
                 </ul>
             </div>
             <div class="col-lg-6">
-                <ul class="list-unstyled">
-                    <li><a href="#">{{$post->category->name}}</a>
 
-                </ul>
             </div>
         </div>
         @endsection
 
 @section('scripts')
     <script>
+
         $(document).ready(function(){
-            $(".comment-reply-container,.toggle-reply").click(function(){
-                if($('.comment-reply').attr("hidden")) {
-                    $('.comment-reply').attr("hidden",false);
+
+            $('[data-toggle="tooltip"]').tooltip({
+
+            });
+
+            $(".toggle-reply").click(function(){
+                var id = $(this).attr('id');
+                if($('#commentId'+id).attr("hidden")) {
+                    $('#commentId'+id).attr("hidden",false);
                 }else{
-                    $('.comment-reply').attr("hidden",true);
+                    $('#commentId'+id).attr("hidden",true);
                 }
             });
         })
+
+
     </script>
     @endsection

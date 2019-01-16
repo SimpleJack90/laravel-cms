@@ -40,21 +40,7 @@ class PostCommentsController extends Controller
     public function store(Request $request)
     {
         //
-        $user=Auth::user();
 
-        $data=[
-            'post_id' => $request->post_id,
-            'author'=>$user->name,
-            'email'=> $user->email,
-            'body'=>$request->body,
-            'photo'=>auth()->user()->photo->file,
-
-
-        ];
-        Comment::create($data);
-        $request->session()->flash('comment_message','Your comment has been submited');
-
-        return redirect()->back();
     }
 
     /**
@@ -107,6 +93,24 @@ class PostCommentsController extends Controller
     {
         //
         Comment::findOrFail($id)->delete();
+
+        return redirect()->back();
+    }
+
+    public function createComment(Request $request){
+        $user=Auth::user();
+
+        $data=[
+            'post_id' => $request->post_id,
+            'author'=>$user->name,
+            'email'=> $user->email,
+            'body'=>$request->body,
+            'photo'=>auth()->user()->photo->file,
+
+
+        ];
+        Comment::create($data);
+        $request->session()->flash('comment_message','Your comment has been submited');
 
         return redirect()->back();
     }
